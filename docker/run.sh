@@ -5,7 +5,7 @@ docker run \
   -dit \
   --gpus all \
   -v $PWD:/workspace \
-  -p $PORT:$PORT \
+  -p $JUPYTER_PORT:$JUPYTER_PORT \
   --name $CONTAINER_NAME \
   --rm \
   --shm-size=2g \
