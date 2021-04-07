@@ -16,7 +16,15 @@ ENV PYTHONPATH "/workspace:${PYTHONPATH}"
 ENV PIP_OPTIONS "--no-cache-dir --progress-bar off"
 COPY docker/requirements.txt $WORK_PATH/docker/
 RUN pip install ${PIP_OPTIONS} -r $WORK_PATH/docker/requirements.txt && \
-    pip install ${PIP_OPTIONS} -U setuptools
+    pip install ${PIP_OPTIONS} -U setuptools && \
+    jupyter serverextension enable --py jupyterlab
+
+# install nodejs for plotly
+RUN curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -&& \
+    apt-get install -y nodejs
+
+# support plotly on jupyter lab
+RUN jupyter labextension install jupyterlab-plotly
 
 # duser setting
 ARG USER_ID
